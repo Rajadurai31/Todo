@@ -25,6 +25,7 @@ public class TodoAppGUI extends JFrame {
         this.todoDAO = new TodoAppDAO();
         initializeComponents();
         setupLayout();
+        setupEvenListeners();
     }
 
     private void initializeComponents() {
@@ -76,22 +77,67 @@ public class TodoAppGUI extends JFrame {
         JPanel inputPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(5,5,5,5);
+
         gbc.gridx=0;
         gbc.gridy=0;
         gbc.anchor = GridBagConstraints.WEST;
         inputPanel.add(new JLabel("Title"),gbc);
+
         gbc.gridx =1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
         inputPanel.add(titleField,gbc);
+        add(inputPanel,BorderLayout.NORTH);
+
         gbc.gridx=0;
         gbc.gridy=1;
         inputPanel.add(new JLabel("Description"),gbc);
         gbc.gridx=1;
-
-        inputPanel.add(descriptionArea,gbc);
+        inputPanel.add(new JScrollPane(descriptionArea),gbc);
+        add(inputPanel,BorderLayout.NORTH);
 
         gbc.gridx = 1;
         gbc.gridy=2;
-        add(inputPanel,BorderLayout.NORTH);
+        inputPanel.add(completedCheckBox,gbc);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.add(addButton);
+        buttonPanel.add(updateButton);
+        buttonPanel.add(deleteButton);
+        buttonPanel.add(refreshButton);
+
+        JPanel filterPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        filterPanel.add(new JLabel("Filter:"));
+        filterPanel.add(filterComboBox);
+
+        JPanel northPanel = new JPanel(new BorderLayout());
+        northPanel.add(inputPanel,BorderLayout.CENTER);
+        northPanel.add(buttonPanel,BorderLayout.NORTH);
+        northPanel.add(filterPanel,BorderLayout.NORTH);
+        add(northPanel,BorderLayout.NORTH);
+
+        add(new JScrollPane(todoTable),BorderLayout.CENTER);
+
+        JPanel statusPanel = new JPanel(new FlowLayout((FlowLayout.CENTER),10,10));
+        statusPanel.add(new JLabel("Select"));
+
+
+    }
+    private void setupEvenListeners(){
+        addButton.addActionListener((e)->addTodo());
+        updateButton.addActionListener((e)->updateTodo());
+        deleteButton.addActionListener((e)->deleteTodo());
+        refreshButton.addActionListener((e)->refreshTodo());
+
+    }
+    private void addTodo(){
+    }
+    private void updateTodo(){
+
+    }
+    private void deleteTodo(){
+
+    }
+    private void refreshTodo(){
 
     }
 }
