@@ -1,4 +1,5 @@
 package com.todo.gui;
+import com.model.Todo;
 import com.todo.dao.TodoAppDAO;
 
 import javax.swing.*;
@@ -139,5 +140,30 @@ public class TodoAppGUI extends JFrame {
     }
     private void refreshTodo(){
 
+    }
+   private  void loadTodos(){
+        try
+        {
+            List<Todo> todos = todoDAO.getAllTodos();
+            updateTable(todos);
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(this, "Error loading todos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void updateTable(List<Todo> todos){
+        tableModel.setRowCount(0);
+        for(Todo t : todos){
+            Object[] row = {
+                t.getId(),
+                t.getTitle(),
+                t.getDescription(),
+                t.isCompleted(),
+                t.getCreated_at(),
+                t.getUpdated_at()
+            };
+            tableModel.addRow(row);
+        }
     }
 }
