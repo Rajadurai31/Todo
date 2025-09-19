@@ -12,7 +12,7 @@ import javax.xml.crypto.Data;
 public class TodoAppDAO {
 
     private static final String SELECT_ALL_TODOS = "select * from todos";// ORDER BY created_at DESC";
-    private static final String INSERT_TODO = "INSERT INTO todo (title, description, completed, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
+    private static final String INSERT_TODO = "INSERT INTO todos (title, description, completed, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_TODO_BY_ID = "SELECT * FROM todos WHERE id=?";
     private static final String Update_Todo = "UPDATE todos SET title=?, description=? ,completed=?,updated_at=? Where id=?";
     private static final String Delete_Todo = "DELETE FROM todos WHERE id=?";

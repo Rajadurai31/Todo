@@ -184,6 +184,11 @@ public class TodoAppGUI extends JFrame {
             JOptionPane.showMessageDialog(this,"Error Updating todo"+ e.getMessage(),"Database Error",JOptionPane.ERROR_MESSAGE);
         }
     }
+    private void clear(Todo todo){
+        todo.setTitle("");
+        todo.setDescription("");
+        todo.setCompleted(false);
+    }
     private void deleteTodo(){
         int row =  todoTable.getSelectedRow();
         if(row==-1){
@@ -195,10 +200,11 @@ public class TodoAppGUI extends JFrame {
             boolean res = todoDAO.deleteTodo(id);
             if(res){
                 Todo todo  = todoDAO.getTodoBYId(id);
-                todo.setTitle("");
-                todo.setDescription("");
-                todo.setCompleted(false);
+                clear(todo);
                 JOptionPane.showMessageDialog(this,"Todo deleted successfully","Succes",JOptionPane.INFORMATION_MESSAGE);
+                titleField.setText("");
+                descriptionArea.setText("");
+                completedCheckBox.setSelected(false);
                 loadTodos();
             }
             else{
@@ -211,7 +217,7 @@ public class TodoAppGUI extends JFrame {
 
     }
     private void refreshTodo(){
-
+         loadTodos();
     }
    private  void loadTodos(){
         try
