@@ -6,6 +6,8 @@ import java.util.List;
 import com.model.Todo;
 import com.todo.util.DatabaseConnection;
 
+import javax.xml.crypto.Data;
+
 
 public class TodoAppDAO {
 
@@ -13,6 +15,7 @@ public class TodoAppDAO {
     private static final String INSERT_TODO = "INSERT INTO todo (title, description, completed, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_TODO_BY_ID = "SELECT * FROM todos WHERE id=?";
     private static final String Update_Todo = "UPDATE todos SET title=?, description=? ,completed=?,updated_at=? Where id=?";
+    private static final String Delete_Todo = "DELETE FROM todos WHERE id=?";
     //Create a New Todo
     public int createtodo(Todo todo) throws SQLException {
         try (
@@ -57,6 +60,15 @@ public class TodoAppDAO {
              stmt.setInt(5,todo.getId());
              int rowAffected = stmt.executeUpdate();
              return rowAffected>0;
+        }
+
+    }
+    public boolean deleteTodo(int todoId) throws SQLException{
+        try(Connection conn = DatabaseConnection.getDBConnection();
+        PreparedStatement stmt = conn.prepareStatement(Delete_Todo);){
+            stmt.setInt(1,todoId);
+            int rowAffected = stmt.executeUpdate();
+            return rowAffected>0;
         }
     }
     private Todo getTodoRow(ResultSet res) throws SQLException{
