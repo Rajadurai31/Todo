@@ -69,9 +69,33 @@ public class TodoAppGUI extends JFrame {
         String[] filterOptions = {"All", "Completed", "Pending"};
         filterComboBox = new JComboBox<>(filterOptions);
         filterComboBox.addActionListener((e) -> {
-            //filterTodos()
+            filterTodos();
         });
 
+    }
+    private void filterTodos(){
+        String option = filterComboBox.getSelectedItem().toString();
+        if(option.equals("ALL")){
+            loadTodos();
+        }
+        else if(option.equals("Completed")){
+             try {
+                 List<Todo> todos = todoDAO.filterTodo(true);
+                 updateTable(todos);
+             } catch (SQLException e){
+                 JOptionPane.showMessageDialog(this,"Error loading todos: "+ e.getMessage(),"Database Error",JOptionPane.ERROR_MESSAGE);
+                 e.printStackTrace();
+             }
+        }
+        else {
+            try {
+                List<Todo> todos = todoDAO.filterTodo(false);
+                updateTable(todos);
+            } catch (SQLException e){
+                JOptionPane.showMessageDialog(this,"Error loading todos: "+ e.getMessage(),"Database Error",JOptionPane.ERROR_MESSAGE);
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setupLayout() {
