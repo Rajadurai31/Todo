@@ -136,6 +136,10 @@ public class TodoAppGUI extends JFrame {
         String title = titleField.getText().trim();
         String description = descriptionArea.getText().trim();
         boolean completed = completedCheckBox.isSelected();
+        if(title.isEmpty()){
+            JOptionPane.showMessageDialog(this,"Please enter a title for the todo","Validation Error",JOptionPane.WARNING_MESSAGE);
+            return;
+        }
         try {
             Todo todo = new Todo(title,description);
             todo.setCompleted(completed);
@@ -149,7 +153,36 @@ public class TodoAppGUI extends JFrame {
         }
     }
     private void updateTodo(){
+       int row = todoTable.getSelectedRow();
+       if(row==-1){
+           JOptionPane.showMessageDialog(this,"Please select a row to update","Validation Error",JOptionPane.WARNING_MESSAGE);
+           return;
+       }
+       String title = titleField.getText().trim();
+       if(title.isEmpty()){
+           JOptionPane.showMessageDialog(this,"Please enter a title for  the todo","Validation Error",JOptionPane.WARNING_MESSAGE);
+           return;
+       }
 
+       int id = (int)todoTable.getValueAt(row,0);
+        try{
+            Todo todo  = todoDAO.getTodoBYId(id);
+            if(todo!=null){
+                todo.setTitle(title);
+                todo.setDescription(descriptionArea.getText().trim());
+                todo.setCompleted(completedCheckBox.isSelected());
+                if(todoDAO.updateTodo(todo)){
+                    JOptionPane.showMessageDialog(this,"Todo Updatec Successfully","Success",JOptionPane.INFORMATION_MESSAGE);
+                    loadTodos();
+                }
+                else{
+                    JOptionPane.showMessageDialog(this,"Failed to update todo","Update Error",JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+        catch (SQLException e){
+            JOptionPane.showMessageDialog(this,"Error Updating todo"+ e.getMessage(),"Database Error",JOptionPane.ERROR_MESSAGE);
+        }
     }
     private void deleteTodo(){
 
