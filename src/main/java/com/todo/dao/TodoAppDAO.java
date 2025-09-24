@@ -14,9 +14,9 @@ public class TodoAppDAO {
     private static final String SELECT_ALL_TODOS = "select * from todos";// ORDER BY created_at DESC";
     private static final String INSERT_TODO = "INSERT INTO todos (title, description, completed, created_at, updated_at) VALUES (?, ?, ?, ?, ?)";
     private static final String SELECT_TODO_BY_ID = "SELECT * FROM todos WHERE id=?";
-    private static final String Update_Todo = "UPDATE todos SET title=?, description=? ,completed=?,updated_at=? Where id=?";
-    private static final String Delete_Todo = "DELETE FROM todos WHERE id=?";
-    private static final String Filter_Todo = "Select * FROM todos WHERE completed=?";
+    private static final String UPDATE_TODO = "UPDATE todos SET title=?, description=? ,completed=?,updated_at=? Where id=?";
+    private static final String DELETE_TODO = "DELETE FROM todos WHERE id=?";
+    private static final String FILTER_TODO = "Select * FROM todos WHERE completed=?";
     //Create a New Todo
     public int createtodo(Todo todo) throws SQLException {
         try (
@@ -53,7 +53,7 @@ public class TodoAppDAO {
     public List<Todo> filterTodo(boolean check) throws  SQLException{
         List<Todo> todos = new ArrayList<>();
         try(Connection conn = DatabaseConnection.getDBConnection();
-        PreparedStatement stmt = conn.prepareStatement(Filter_Todo);){
+        PreparedStatement stmt = conn.prepareStatement(FILTER_TODO);){
             stmt.setBoolean(1,check);
             ResultSet res = stmt.executeQuery();
             while(res.next()){
@@ -65,7 +65,7 @@ public class TodoAppDAO {
     }
     public boolean updateTodo(Todo todo) throws SQLException{
         try(Connection conn = DatabaseConnection.getDBConnection();
-             PreparedStatement stmt = conn.prepareStatement(Update_Todo);
+             PreparedStatement stmt = conn.prepareStatement(UPDATE_TODO);
              ){
              stmt.setString(1,todo.getTitle());
              stmt.setString(2,todo.getDescription());
@@ -79,7 +79,7 @@ public class TodoAppDAO {
     }
     public boolean deleteTodo(int todoId) throws SQLException{
         try(Connection conn = DatabaseConnection.getDBConnection();
-        PreparedStatement stmt = conn.prepareStatement(Delete_Todo);){
+        PreparedStatement stmt = conn.prepareStatement(DELETE_TODO);){
             stmt.setInt(1,todoId);
             int rowAffected = stmt.executeUpdate();
             return rowAffected>0;
