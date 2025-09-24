@@ -17,6 +17,7 @@ public class TodoAppDAO {
     private static final String UPDATE_TODO = "UPDATE todos SET title=?, description=? ,completed=?,updated_at=? Where id=?";
     private static final String DELETE_TODO = "DELETE FROM todos WHERE id=?";
     private static final String FILTER_TODO = "Select * FROM todos WHERE completed=?";
+    private static final String CLEAR_TODO = "DELETE FROM todos";
     //Create a New Todo
     public int createtodo(Todo todo) throws SQLException {
         try (
@@ -63,6 +64,7 @@ public class TodoAppDAO {
         return todos;
 
     }
+    public Boolean
     public boolean updateTodo(Todo todo) throws SQLException{
         try(Connection conn = DatabaseConnection.getDBConnection();
              PreparedStatement stmt = conn.prepareStatement(UPDATE_TODO);
