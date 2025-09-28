@@ -147,7 +147,7 @@ public class TodoAppGUI extends JFrame {
         updateButton.addActionListener((e)->{updateTodo();});
         deleteButton.addActionListener((e)->{deleteTodo();});
         refreshButton.addActionListener((e)->{refreshTodo();});
-        clear.addActionListener((e)->{clearTodo();});
+//        clear.addActionListener((e)->{clearTodo();});
     }
     private void addTodo(){
         String title = titleField.getText().trim();
@@ -218,7 +218,7 @@ public class TodoAppGUI extends JFrame {
             if(res){
 //                Todo todo  = todoDAO.getTodoBYId(id);
                 JOptionPane.showMessageDialog(this,"Todo deleted successfully","Succes",JOptionPane.INFORMATION_MESSAGE);
-               clearTodo();
+//               clearTodo();
 
             }
             else{
