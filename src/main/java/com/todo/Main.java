@@ -1,7 +1,6 @@
 package com.todo;
 import com.todo.gui.TodoAppGUI;
 import com.todo.util.DatabaseConnection;
-import com.todo.util.DatabaseConnection;
 
 import javax.swing.*;
 import java.sql.Connection;
