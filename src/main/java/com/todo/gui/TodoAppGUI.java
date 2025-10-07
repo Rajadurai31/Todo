@@ -189,7 +189,7 @@ public class TodoAppGUI extends JFrame {
                 todo.setDescription(descriptionArea.getText().trim());
                 todo.setCompleted(completedCheckBox.isSelected());
                 if(todoDAO.updateTodo(todo)){
-                    JOptionPane.showMessageDialog(this,"Todo Updatec Successfully","Success",JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(this,"Todo Updated Successfully","Success",JOptionPane.INFORMATION_MESSAGE);
                     loadTodos();
                 }
                 else{
